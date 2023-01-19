@@ -26,5 +26,10 @@ export class TemperatureConverter {
         const kelvinTemperature = temperature + 273.15;
         return { "celsius": temperature, "kelvin":  kelvinTemperature};
       }
+
+      if (scale === "kelvin" && scaleToConvert === "celsius") {
+        const celsiusTemperature = temperature - 273.15;
+        return { "kelvin": temperature, "celsius":  celsiusTemperature};
+      }
   }
 }
