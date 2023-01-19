@@ -16,5 +16,10 @@ export class TemperatureConverter {
       const fahrenheitTemperature = temperature * 1.8 + 32;
       return { "celsius": temperature, "fahrenheit":  fahrenheitTemperature };
     }
+
+    if (scale === "farenheit" && scaleToConvert === "celsius") {
+        const celsiusTemperature = (temperature - 32) / 1.8;
+        return { "fahrenheit": temperature, "celsius":  celsiusTemperature };
+      }
   }
 }
