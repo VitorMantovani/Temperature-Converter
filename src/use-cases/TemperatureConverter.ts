@@ -31,5 +31,10 @@ export class TemperatureConverter {
         const celsiusTemperature = temperature - 273.15;
         return { "kelvin": temperature, "celsius":  celsiusTemperature};
       }
+
+      if (scale === "fahrenheit" && scaleToConvert === "kelvin") {
+        const kelvinTemperature =  (temperature - 32) * 5/9 + 273.15
+        return { "fahrenheit": temperature, "kelvin":  Math.round(kelvinTemperature * 100) / 100};
+      }
   }
 }
