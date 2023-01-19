@@ -40,4 +40,14 @@ describe("Temperature converter", () => {
 
     expect(convertedTemperature).toEqual(expect.objectContaining({ "kelvin": 373.15, "celsius": 100 }))
   });
+
+  it("should be able to convert temperature in fahrenheit to kelvin", () => {
+    const convertedTemperature = TemperatureConverter.execute({
+      temperature: 100,
+      scale: "fahrenheit",
+      scaleToConvert: "kelvin",
+    });
+
+    expect(convertedTemperature).toEqual(expect.objectContaining({ "fahrenheit": 100, "kelvin": 310.93 }))
+  });
 });
