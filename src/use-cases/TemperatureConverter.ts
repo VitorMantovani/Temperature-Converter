@@ -1,40 +1,49 @@
-type dataToConvert = {
-  temperature: number;
-  scale: string;
-  scaleToConvert: string;
-};
+export enum Scales {
+    fahrenheit = "fahrenheit",
+    celsius = "celsius",
+    kelvin = "kelvin"
+}
 
-type convertedData = Record<string, number>;
+type DataToConvert = {
+  temperature: number;
+  scale: Scales;
+  scaleToConvert: Scales;
+};
 
 export class TemperatureConverter {
   static execute({
     temperature,
     scale,
     scaleToConvert,
-  }: dataToConvert) {
-    if (scale === "celsius" && scaleToConvert === "fahrenheit") {
-      const fahrenheitTemperature = temperature * 1.8 + 32;
-      return { "celsius": temperature, "fahrenheit":  fahrenheitTemperature };
+  }: DataToConvert): Record<string, number> {
+    
+    if(scale === scaleToConvert) {
+        throw new Error("You're trying to convert the same scale!")
     }
 
-    if (scale === "farenheit" && scaleToConvert === "celsius") {
-        const celsiusTemperature = (temperature - 32) / 1.8;
-        return { "fahrenheit": temperature, "celsius":  celsiusTemperature };
-      }
+    const concatedScales: string = `${scale}To${scaleToConvert}`;
 
-      if (scale === "celsius" && scaleToConvert === "kelvin") {
-        const kelvinTemperature = temperature + 273.15;
-        return { "celsius": temperature, "kelvin":  kelvinTemperature};
-      }
+    const convertedTemperatures: Record<string, number> = {
+        celsiusTofahrenheit: temperature * 1.8 + 32,
+        fahrenheitTocelsius: (temperature - 32) / 1.8,
+        celsiusTokelvin: temperature + 273.15,
+        kelvinTocelsius: temperature - 273.15,
+        fahrenheitTokelvin: Number(((temperature - 32) * 5/9 + 273.15).toFixed(3)),
+        kelvinTofahrenheit: Number(((temperature - 273.15) * 9/5  + 32).toFixed(3))
+    }
+    
+    const convertedTemperature: number = convertedTemperatures[concatedScales];
 
-      if (scale === "kelvin" && scaleToConvert === "celsius") {
-        const celsiusTemperature = temperature - 273.15;
-        return { "kelvin": temperature, "celsius":  celsiusTemperature};
-      }
-
-      if (scale === "fahrenheit" && scaleToConvert === "kelvin") {
-        const kelvinTemperature =  (temperature - 32) * 5/9 + 273.15
-        return { "fahrenheit": temperature, "kelvin":  Math.round(kelvinTemperature * 100) / 100};
-      }
+    return { [scale]: temperature, [scaleToConvert]: convertedTemperature }
   }
 }
+
+/*
+
+O QUE FALTA?
+
+- Validação da mesma escala
+- Refatorar Ifs
+- 
+
+*/
