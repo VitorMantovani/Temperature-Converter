@@ -61,11 +61,27 @@ describe("Temperature converter", () => {
     expect(convertedTemperature).toEqual(expect.objectContaining({ "kelvin": 310.928, "fahrenheit": 100 }))
   });
 
-  it("should return an error if equals scales are passed", () => {
+  it("should return an error if same scales are passed", () => {
     expect(() => TemperatureConverter.execute({
       temperature: 310.928,
       scale: Scales.kelvin,
       scaleToConvert: Scales.kelvin,
     })).toThrowError("You're trying to convert the same scale!")
+  })
+
+  it("should return an error if a nonexistent scale is passed", () => {
+    expect(() => TemperatureConverter.execute({
+      temperature: 310.928,
+      scale: "batata",
+      scaleToConvert: Scales.kelvin,
+    })).toThrowError("You're trying to convert a nonexistent scale!")
+  })
+
+  it("should return an error if a nonexistent scaleToConvert is passed", () => {
+    expect(() => TemperatureConverter.execute({
+      temperature: 310.928,
+      scale: Scales.fahrenheit,
+      scaleToConvert: "galinha pintadinha",
+    })).toThrowError("You're trying to convert a nonexistent scale!")
   })
 });
