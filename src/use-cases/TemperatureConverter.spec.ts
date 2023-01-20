@@ -11,7 +11,7 @@ describe("Temperature converter", () => {
     expect(convertedTemperature).toEqual(expect.objectContaining({ "celsius": 100, "fahrenheit": 212 }))
   });
 
-  it("should be able to convert temperature in farenheit to celsius", () => {
+  it("should be able to convert temperature in fahrenheit to celsius", () => {
     const convertedTemperature = TemperatureConverter.execute({
       temperature: 212,
       scale: Scales.fahrenheit,
